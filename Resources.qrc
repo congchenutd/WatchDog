@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/Camera.png</file>
+        <file>Images/History.png</file>
+        <file>Images/Chart.png</file>
+        <file>Images/Settings.png</file>
+        <file>Images/SleepyBoy.ico</file>
+        <file>Images/SleepyBoy.png</file>
+        <file>Images/Green.png</file>
+        <file>Images/Red.png</file>
+        <file>Images/CameraOff.png</file>
+        <file>Images/Dog.icns</file>
+        <file>Images/Dog.ico</file>
+        <file>Images/Dog.png</file>
+    </qresource>
+</RCC>
