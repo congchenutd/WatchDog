@@ -11,10 +11,10 @@ using namespace cv;
 /**
  * Detecting motion from a given video frame
  */
-class MotionDetecter: public FrameHandler
+class MotionDetector: public FrameHandler
 {
 public:
-	MotionDetecter();
+    MotionDetector();
     void setThreshold(int width, int height, int number);
 	void handleFrame(Mat& frame);
 

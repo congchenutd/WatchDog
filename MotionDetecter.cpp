@@ -6,20 +6,20 @@
 using namespace cv;
 using namespace std;
 	   
-MotionDetecter::MotionDetecter()
+MotionDetector::MotionDetector()
 {
     setThreshold(100, 100, 1);
     _substractor = createBackgroundSubtractorMOG2();
 }
 
-void MotionDetecter::setThreshold(int width, int height, int number)
+void MotionDetector::setThreshold(int width, int height, int number)
 {
     _widthThreshold  = width;
     _heightThreshold = height;
     _numberThreshold = number;
 }
 
-void MotionDetecter::handleFrame(Mat& frame)
+void MotionDetector::handleFrame(Mat& frame)
 {
 	const Scalar color = Scalar(0, 0, 255);
 	vector<vector<Point> > contours;
@@ -40,7 +40,7 @@ void MotionDetecter::handleFrame(Mat& frame)
 
 		// Draw bounding rectangle
 		Rect boundRect = boundingRect(Mat(polygon));
-		if (boundRect.width > _widthThreshold || boundRect.height > _heightThreshold)
+        if (boundRect.width > _widthThreshold && boundRect.height > _heightThreshold)
 			rectangle(frame, boundRect.tl(), boundRect.br(), color, 2, 8, 0);
 	}
 }
