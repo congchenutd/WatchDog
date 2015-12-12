@@ -23,7 +23,11 @@ SOURCES +=\
     VideoViewer.cpp \
     MySettings.cpp \
     CameraPage.cpp \
-    ReviewPage.cpp
+    ReviewPage.cpp \
+    CameraPagelet.cpp \
+    CameraConfigDlg.cpp \
+    CameraView.cpp \
+    Camera.cpp
 
 HEADERS  += MainWindow.h \
     SettingsPage.h \
@@ -34,12 +38,19 @@ HEADERS  += MainWindow.h \
     VideoViewer.h \
     MySettings.h \
     CameraPage.h \
-    ReviewPage.h
+    ReviewPage.h \
+    CameraPagelet.h \
+    CameraConfigDlg.h \
+    CameraView.h \
+    Camera.h
 
 FORMS    += MainWindow.ui \
     SettingsPage.ui \
     CameraPage.ui \
-    ReviewPage.ui
+    ReviewPage.ui \
+    CameraPagelet.ui \
+    CameraConfigDlg.ui \
+    CameraView.ui
 
 RESOURCES += \
     Resources.qrc

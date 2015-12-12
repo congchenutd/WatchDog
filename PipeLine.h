@@ -8,13 +8,17 @@
 class FrameHandler;
 using namespace cv;
 
+/**
+ * A pipeline contains multiple FramHanders
+ * A frame will be processed by the FrameHandlers in the order they are added to the pipeline
+ */
 class PipeLine: public QObject
 {
     Q_OBJECT
 
 public:
     void openDevice(int device);
-    void openDevice(const cv::String& device);
+    void openDevice(const QString& url);
 	void addHandler(FrameHandler* handler);
     void start(int fps = 10);
     void stop();

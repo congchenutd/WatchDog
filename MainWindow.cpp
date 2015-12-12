@@ -6,3 +6,4 @@ MainWindow::MainWindow(QWidget* parent) :
     ui.setupUi(this);
     ui.tabSettings->load();
 }
+

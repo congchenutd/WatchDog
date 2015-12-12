@@ -3,6 +3,8 @@
 
 #include <QSettings>
 
+struct Camera;
+
 class MySettings : public QSettings
 {
 public:
@@ -17,6 +19,8 @@ public:
     void setStoragePath     (const QString& path);
     void setMaxStorage      (int gb);
     void setMaxDays         (int days);
+    void setGridSize        (int nRow, int nCol);
+    void saveCameras        (const QList<Camera>& cameras);
 
     QString getUrl()                const;
     int     getFPS()                const;
@@ -27,6 +31,11 @@ public:
     QString getStoragePath()        const;
     int     getMaxStorage()         const;
     int     getMaxDays()            const;
+    QPair<int, int> getGridSize()   const;
+    QList<Camera> getCameras() const;
+
+private:
+    void createDefaults();
 };
 
 #endif // MYSETTINGS_H

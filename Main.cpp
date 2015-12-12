@@ -9,6 +9,9 @@
 #include <opencv2/videoio.hpp>
 #include <opencv2/opencv.hpp>
 
+//#include <QJsonObject>
+//#include <QSettings>
+
 using namespace cv;
 
 int main(int argc, char *argv[])

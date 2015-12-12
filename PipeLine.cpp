@@ -36,8 +36,8 @@ void PipeLine::openDevice(int device) {
     _input.open(device);
 }
 
-void PipeLine::openDevice(const String& device) {
-    _input.open(device);
+void PipeLine::openDevice(const QString& url) {
+    _input.open(url.toStdString());
 }
 
 void PipeLine::addHandler(FrameHandler* handler) {

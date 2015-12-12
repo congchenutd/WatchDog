@@ -1,9 +1,30 @@
 #include "MySettings.h"
+#include "Camera.h"
+#include "QJsonObject"
+#include <QFile>
+#include <QDir>
+#include <QJsonArray>
+#include <QDebug>
+#include <QJsonDocument>
 
 MySettings::MySettings()
     : QSettings("SleepyBoy.ini", QSettings::IniFormat)
 {
+    if (QFile("SleepyBoy.ini").size() == 0)
+        createDefaults();
+}
 
+void MySettings::createDefaults()
+{
+    setFPS(5);
+    setMinWidth(100);
+    setMinHeight(100);
+    setMinNumber(1);
+    setStorageInterval(1);
+    setStoragePath(QDir::currentPath());
+    setMaxStorage(10);
+    setMaxDays(7);
+    setGridSize(2, 2);
 }
 
 void MySettings::setUrl(const QString& url) {
@@ -42,6 +63,23 @@ void MySettings::setMaxDays(int days) {
     setValue("MaxDays", days);
 }
 
+void MySettings::setGridSize(int nRow, int nCol)
+{
+    setValue("GridRowCount", nRow);
+    setValue("GridColCount", nCol);
+}
+
+void MySettings::saveCameras(const QList<Camera>& cameras)
+{
+    QJsonArray jsonArray;
+    foreach(const Camera& camera, cameras)
+        jsonArray << camera.toJson();
+
+    // FIXME: setValue("cameras", jsonArray) will throw an error
+    // So I convert jsonArray to text as a QByteArray
+    setValue("cameras", QJsonDocument(jsonArray).toJson());
+}
+
 QString MySettings::getUrl() const {
     return value("Url").toString();
 }
@@ -76,6 +114,20 @@ int MySettings::getMaxStorage() const {
 
 int MySettings::getMaxDays() const {
     return value("MaxDays").toInt();
+}
+
+QPair<int, int> MySettings::getGridSize() const {
+    return QPair<int, int>(value("GridRowCount").toInt(),
+                           value("GridColCount").toInt());
+}
+
+QList<Camera> MySettings::getCameras() const
+{
+    QList<Camera> result;
+    QJsonArray jsonArray = QJsonDocument::fromJson(value("Cameras").toByteArray()).array();
+    foreach(const QJsonValue& value, jsonArray)
+        result << Camera::fromJson(value.toObject());
+    return result;
 }
 
 

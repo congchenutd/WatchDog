@@ -12,5 +12,14 @@
         <file>Images/Dog.icns</file>
         <file>Images/Dog.ico</file>
         <file>Images/Dog.png</file>
+        <file>Images/Config.png</file>
+        <file>Images/Delete.png</file>
+        <file>Images/Off.png</file>
+        <file>Images/On.png</file>
+        <file>Images/CameraOn.png</file>
+        <file>Images/Bulldog.icns</file>
+        <file>Images/Bulldog.ico</file>
+        <file>Images/Bulldog.png</file>
+        <file>Images/About.png</file>
     </qresource>
 </RCC>

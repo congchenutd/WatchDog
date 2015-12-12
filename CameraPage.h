@@ -7,6 +7,7 @@
 class MotionDetector;
 class VideoViewer;
 class VideoSaver;
+class QGridLayout;
 
 class CameraPage : public QWidget
 {
@@ -14,17 +15,11 @@ class CameraPage : public QWidget
 
 public:
     CameraPage(QWidget* parent = 0);
-
-private slots:
-    void onTurnOn(bool on);
+    ~CameraPage();
 
 private:
     Ui::CameraPage ui;
-
-    PipeLine _pipeLine;
-    MotionDetector* _motionDetector;
-    VideoViewer*    _videoViewer;
-    VideoSaver*     _videoSaver;
+    QGridLayout*    _layout;
 };
 
 #endif // CAMERAPAGE_H

@@ -14,7 +14,6 @@ SettingsPage::SettingsPage(QWidget* parent) :
 
 void SettingsPage::load()
 {
-    ui.leUrl            ->setText   (_settings.getUrl());
     ui.sbFPS            ->setValue  (_settings.getFPS());
     ui.sbWidth          ->setValue  (_settings.getMinWidth());
     ui.sbHeight         ->setValue  (_settings.getMinHeight());
@@ -23,11 +22,12 @@ void SettingsPage::load()
     ui.leStoragePath    ->setText   (_settings.getStoragePath());
     ui.sbMaxStorage     ->setValue  (_settings.getMaxStorage());
     ui.sbMaxDays        ->setValue  (_settings.getMaxDays());
+    ui.sbGridNRows      ->setValue  (_settings.getGridSize().first);
+    ui.sbGridNCols      ->setValue  (_settings.getGridSize().second);
 }
 
 void SettingsPage::onSave()
 {
-    _settings.setUrl            (ui.leUrl->text());
     _settings.setFPS            (ui.sbFPS->value());
     _settings.setMinWidth       (ui.sbWidth ->value());
     _settings.setMinHeight      (ui.sbHeight->value());
@@ -36,6 +36,7 @@ void SettingsPage::onSave()
     _settings.setStoragePath    (ui.leStoragePath->text());
     _settings.setMaxStorage     (ui.sbMaxStorage->value());
     _settings.setMaxDays        (ui.sbMaxDays->value());
+    _settings.setGridSize(ui.sbGridNRows->value(), ui.sbGridNCols->value());
 }
 
 void SettingsPage::onSetStoragePath()
