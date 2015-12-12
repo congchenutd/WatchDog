@@ -4,7 +4,7 @@ TARGET = WatchDog
 TEMPLATE = app
 
 INCLUDEPATH += C:\\opencv\\build\\include
-LIBS += -LC:\\opencv\\build\\x64\\vc12\\lib \
+LIBS += -LC:\\opencv\\build\\x86\\vc12\\lib \
 	-lopencv_ts300 \
 	-lopencv_world300
 

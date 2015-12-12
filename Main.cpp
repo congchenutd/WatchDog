@@ -21,11 +21,8 @@ int main(int argc, char *argv[])
     window.show();
     return app.exec();
 
-    //"http://1:1@192.168.1.110:8888/videostream.asf"
-
 //    PipeLine* pipeline = new PipeLine;
-//    pipeline->openDevice(0);
-//    pipeline->addHandler(new MotionDetecter);
+//    pipeline->openDevice("http://1:1@192.168.1.5:8888/videostream.asf");
 //    QLabel* label = new QLabel();
 //    pipeline->addHandler(new VideoViewer(label));
 //    label->resize(640, 480);
@@ -33,4 +30,10 @@ int main(int argc, char *argv[])
 //    pipeline->start();
 
 //    return app.exec();
+
+//    VideoCapture cap("http://192.168.1.9/axis-cgi/mjpg/video.cgi.mjpg");
+////    VideoCapture cap("rtsp://admin:w0r3o3i9@192.168.1.9:554/cam/realmonitor?channel=1&subtype=1");
+//    if (cap.isOpened())
+//        return 0;
+//    return 1;
 }

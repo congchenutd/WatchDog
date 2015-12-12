@@ -34,13 +34,15 @@ void CameraView::turnOn(bool on)
     else
     {
         ui.label->show();
-        //"http://1:1@192.168.1.110:8888/videostream.asf"
-        MySettings settings;
-//        if (_url.isEmpty())
-            _pipeLine.openDevice(0);
-//        else
-//            _pipeLine.openDevice(settings.getUrl().toStdString());
+        //"http://1:1@192.168.1.5:8888/videostream.asf"
 
+        if (_url.isEmpty())
+            _pipeLine.openDevice(0);
+        else {
+            _pipeLine.openDevice(_url);
+        }
+
+        MySettings settings;
         _motionDetector->setThreshold(settings.getMinWidth(),
                                       settings.getMinHeight(),
                                       settings.getMinNumber());
