@@ -7,7 +7,7 @@ class VideoViewer: public FrameHandler
 {
 public:
     VideoViewer(QLabel* label);
-	void handleFrame(cv::Mat& frame);
+    void handleFrame(cv::Mat& frame, cv::Mat& previous);
 
 private:
     QLabel* _label;

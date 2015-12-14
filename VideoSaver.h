@@ -9,7 +9,7 @@ class VideoSaver: public FrameHandler
 {
 public:
     void config(const QString& path, int fourcc, int fps, Size frameSize, int interval);
-    void handleFrame(Mat& frame);
+    void handleFrame(Mat& frame, Mat& previous);
 
 private:
     QString generateFileName();

@@ -32,6 +32,7 @@ private:
     QList<FrameHandler*>    _handlers;
     QTimer                  _timer;
     Mat                     _frame;
+    Mat                     _prevFrame;
 };
 
 #endif

@@ -10,7 +10,7 @@ VideoViewer::VideoViewer(QLabel* label)
     _label = label;
 }
 
-void VideoViewer::handleFrame(Mat& frame)
+void VideoViewer::handleFrame(Mat& frame, Mat& previous)
 {
     // timestamp
     QString time = QDateTime::currentDateTime().toString("MM/dd/yyyy HH:mm:ss");

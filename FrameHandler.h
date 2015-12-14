@@ -6,7 +6,7 @@
 class FrameHandler
 {
 public:
-	virtual void handleFrame(cv::Mat& frame) = 0;
+    virtual void handleFrame(cv::Mat& frame, cv::Mat& previous) = 0;
 };
 #endif // FrameHandler_h__
 

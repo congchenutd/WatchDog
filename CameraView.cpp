@@ -19,7 +19,7 @@ CameraView::CameraView(const QString& url, QWidget* parent) :
     _videoSaver     = new VideoSaver;
     _pipeLine.addHandler(_motionDetector);
     _pipeLine.addHandler(_videoViewer);
-//    _pipeLine.addHandler(_videoSaver);
+    _pipeLine.addHandler(_videoSaver);
 
     turnOn(false);
 }

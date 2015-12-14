@@ -16,7 +16,7 @@ void VideoSaver::config(const QString& path, int fourcc, int fps, Size frameSize
     _videoWriter.open(_fileName.toStdString(), _fourcc, _fps, _frameSize);
 }
 
-void VideoSaver::handleFrame(Mat& frame)
+void VideoSaver::handleFrame(Mat& frame, Mat& previous)
 {
     _videoWriter << frame;
     if(++_frameCount > _interval * 60 * _fps)

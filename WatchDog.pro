@@ -4,9 +4,19 @@ TARGET = WatchDog
 TEMPLATE = app
 
 INCLUDEPATH += C:\\opencv\\build\\include
+
+debug {
+LIBS += -LC:\\opencv\\build\\x86\\vc12\\lib \
+	-lopencv_ts300d \
+	-lopencv_world300d
+}
+
+release {
 LIBS += -LC:\\opencv\\build\\x86\\vc12\\lib \
 	-lopencv_ts300 \
 	-lopencv_world300
+}
+
 
 win32 {
 	RC_FILE = Resources.rc

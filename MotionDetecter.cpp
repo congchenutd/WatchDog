@@ -19,30 +19,56 @@ void MotionDetector::setThreshold(int width, int height, int number)
     _numberThreshold = number;
 }
 
-void MotionDetector::handleFrame(Mat& frame)
+void MotionDetector::handleFrame(Mat& frame, Mat& previous)
 {
-	const Scalar color = Scalar(0, 0, 255);
-	vector<vector<Point> > contours;
+    detectMotion(previous, frame);
+}
 
-	_substractor->apply(frame, _foreground);
-	erode (_foreground, _foreground, Mat());
-	dilate(_foreground, _foreground, Mat());
-	findContours(_foreground, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+void MotionDetector::detectMotion(Mat& frame1, Mat& frame2)
+{
+    // Blur images to reduce noise
+    Mat blurred1, blurred2;
+    blur(frame1, blurred1, Size(4 ,4));
+    blur(frame2, blurred2, Size(4, 4));
 
-    if(contours.size() < _numberThreshold)
-        return;
+    // Get absolute difference image
+    Mat diff;
+    absdiff(blurred1, blurred2, diff);
 
-	for(size_t i = 0; i < contours.size(); i++)
-	{
-		// Approximate contours to polygons
-		vector<Point> polygon;
-		approxPolyDP(Mat(contours[i]), polygon, 3, true);
+    // Split image to each channels
+    vector<Mat> channels;
+    split(diff, channels);
 
-		// Draw bounding rectangle
-		Rect boundRect = boundingRect(Mat(polygon));
-        if (boundRect.width > _widthThreshold && boundRect.height > _heightThreshold)
-			rectangle(frame, boundRect.tl(), boundRect.br(), color, 2, 8, 0);
-	}
+    // Apply threshold to each channel and combine the results
+    Mat thresholds = Mat::zeros(diff.size(), CV_8UC1);
+    for (int i = 0; i < channels.size(); i++)
+    {
+        Mat thresh;
+        threshold(channels[i], thresh, 45, 255, CV_THRESH_BINARY);
+        thresholds |= thresh;
+    }
+
+    // Perform morphological close operation to filling in the gaps
+    Mat e;
+    getStructuringElement(MORPH_RECT, Size(10, 10));
+    morphologyEx(thresholds, e, MORPH_CLOSE, Mat(), Point(-1,-1), 5);
+
+    // Find all contours
+//    vector<vector<Point> > contours;
+//    findContours(e, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+
+//    const Scalar redColor = Scalar(0, 0, 255);
+//    for(size_t i = 0; i < contours.size(); i++)
+//    {
+//        // Approximate contours to polygons
+//        vector<Point> polygon;
+//        approxPolyDP(Mat(contours[i]), polygon, 3, true);
+
+//        // Draw bounding rectangle
+//        Rect boundRect = boundingRect(Mat(polygon));
+//        if (boundRect.width > 100 && boundRect.height > 100)
+//            rectangle(frame2, boundRect.tl(), boundRect.br(), redColor, 2, 8, 0);
+//    }
 }
 
 

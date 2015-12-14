@@ -27,9 +27,9 @@ void PipeLine::onTimer()
     if(!_input.isOpened())
         return;
 
-    _input >> _frame;
+    _input >> _prevFrame >> _frame;
     foreach(FrameHandler* handler, _handlers)
-        handler->handleFrame(_frame);
+        handler->handleFrame(_frame, _prevFrame);
 }
 
 void PipeLine::openDevice(int device) {

@@ -16,14 +16,17 @@ class MotionDetector: public FrameHandler
 public:
     MotionDetector();
     void setThreshold(int width, int height, int number);
-	void handleFrame(Mat& frame);
+    void handleFrame(Mat& frame, Mat& previous);
+
+private:
+    void detectMotion(Mat& frame1, Mat& frame2);
 
 private:
 	int _widthThreshold;
 	int _heightThreshold;
     int _numberThreshold;
 	Mat _foreground;
-	Ptr<BackgroundSubtractorMOG2> _substractor;
+    Ptr<BackgroundSubtractorMOG2> _substractor;
 };
 
 #endif // MotionDetecter_h__
