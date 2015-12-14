@@ -3,8 +3,12 @@
 
 #include "ui_CameraPagelet.h"
 #include "Camera.h"
+#include "PipeLine.h"
 
-class CameraView;
+class QPushButton;
+class MotionDetector;
+class VideoViewer;
+class VideoSaver;
 
 /**
  * A pagelet holds a camera and related buttons
@@ -21,6 +25,7 @@ public:
 protected:
     void enterEvent(QEvent*);
     void leaveEvent(QEvent*);
+    void resizeEvent(QResizeEvent*);
 
 private slots:
     void showButtons();
@@ -32,10 +37,18 @@ private slots:
 private:
     Ui::CameraPagelet ui;
 
-    CameraView* _cameraView;
     Camera      _camera;
     int         _row;
     int         _col;
+
+    PipeLine        _pipeLine;
+    MotionDetector* _motionDetector;
+    VideoViewer*    _videoViewer;
+    VideoSaver*     _videoSaver;
+
+    QPushButton*    _btConfig;
+    QPushButton*    _btDelete;
+    QPushButton*    _btTurnOn;
 };
 
 #endif // CAMERAPAGELET_H

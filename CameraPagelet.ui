@@ -20,63 +20,39 @@
       <string>No camera</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>10</number>
+      </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="btConfig">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="Resources.qrc">
-            <normaloff>:/Images/Config.png</normaloff>:/Images/Config.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btOn">
-          <property name="icon">
-           <iconset resource="Resources.qrc">
-            <normaloff>:/Images/CameraOn.png</normaloff>:/Images/CameraOn.png</iconset>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btDelete">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="Resources.qrc">
-            <normaloff>:/Images/Delete.png</normaloff>:/Images/Delete.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>197</height>
-         </size>
+        <property name="text">
+         <string>No camera</string>
         </property>
-       </spacer>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="Resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

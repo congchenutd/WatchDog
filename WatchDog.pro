@@ -6,13 +6,13 @@ TEMPLATE = app
 INCLUDEPATH += C:\\opencv\\build\\include
 
 debug {
-LIBS += -LC:\\opencv\\build\\x86\\vc12\\lib \
+LIBS += -LC:\\opencv\\build\\x64\\vc12\\lib \
 	-lopencv_ts300d \
 	-lopencv_world300d
 }
 
 release {
-LIBS += -LC:\\opencv\\build\\x86\\vc12\\lib \
+LIBS += -LC:\\opencv\\build\\x64\\vc12\\lib \
 	-lopencv_ts300 \
 	-lopencv_world300
 }
@@ -36,7 +36,6 @@ SOURCES +=\
     ReviewPage.cpp \
     CameraPagelet.cpp \
     CameraConfigDlg.cpp \
-    CameraView.cpp \
     Camera.cpp
 
 HEADERS  += MainWindow.h \
@@ -51,7 +50,6 @@ HEADERS  += MainWindow.h \
     ReviewPage.h \
     CameraPagelet.h \
     CameraConfigDlg.h \
-    CameraView.h \
     Camera.h
 
 FORMS    += MainWindow.ui \
@@ -59,8 +57,7 @@ FORMS    += MainWindow.ui \
     CameraPage.ui \
     ReviewPage.ui \
     CameraPagelet.ui \
-    CameraConfigDlg.ui \
-    CameraView.ui
+    CameraConfigDlg.ui
 
 RESOURCES += \
     Resources.qrc

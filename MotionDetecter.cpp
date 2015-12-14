@@ -54,21 +54,21 @@ void MotionDetector::detectMotion(Mat& frame1, Mat& frame2)
     morphologyEx(thresholds, e, MORPH_CLOSE, Mat(), Point(-1,-1), 5);
 
     // Find all contours
-//    vector<vector<Point> > contours;
-//    findContours(e, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+    vector<vector<Point> > contours;
+    findContours(e, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
 
-//    const Scalar redColor = Scalar(0, 0, 255);
-//    for(size_t i = 0; i < contours.size(); i++)
-//    {
-//        // Approximate contours to polygons
-//        vector<Point> polygon;
-//        approxPolyDP(Mat(contours[i]), polygon, 3, true);
+    const Scalar redColor = Scalar(0, 0, 255);
+    for(size_t i = 0; i < contours.size(); i++)
+    {
+        // Approximate contours to polygons
+        vector<Point> polygon;
+        approxPolyDP(Mat(contours[i]), polygon, 3, true);
 
-//        // Draw bounding rectangle
-//        Rect boundRect = boundingRect(Mat(polygon));
-//        if (boundRect.width > 100 && boundRect.height > 100)
-//            rectangle(frame2, boundRect.tl(), boundRect.br(), redColor, 2, 8, 0);
-//    }
+        // Draw bounding rectangle
+        Rect boundRect = boundingRect(Mat(polygon));
+        if (boundRect.width > 100 && boundRect.height > 100)
+            rectangle(frame2, boundRect.tl(), boundRect.br(), redColor, 2, 8, 0);
+    }
 }
 
 
