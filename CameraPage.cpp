@@ -17,8 +17,8 @@ CameraPage::CameraPage(QWidget *parent) :
 
     // create a grid layout
     _layout = new QGridLayout(ui.cameraBoard);
-    _layout->setMargin(0);
-    _layout->setSpacing(5);
+    _layout->setSpacing(10);
+    _layout->setContentsMargins(0, 0, 0, 0);
     for (int row = 0; row < nRow; ++row)
         for (int col = 0; col < nCol; ++col)
         {
