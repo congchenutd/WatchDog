@@ -4,10 +4,8 @@
 #include "PipeLine.h"
 #include "ui_CameraPage.h"
 
-class MotionDetector;
-class VideoViewer;
-class VideoSaver;
 class QGridLayout;
+class CameraPagelet;
 
 class CameraPage : public QWidget
 {
@@ -16,6 +14,9 @@ class CameraPage : public QWidget
 public:
     CameraPage(QWidget* parent = 0);
     ~CameraPage();
+
+private slots:
+    void onMaximizeRequested(CameraPagelet* toBeMaximized, bool maximize);
 
 private:
     Ui::CameraPage ui;

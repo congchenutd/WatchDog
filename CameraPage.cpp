@@ -25,6 +25,9 @@ CameraPage::CameraPage(QWidget *parent) :
             // create a page let for each grid cell
             CameraPagelet* pagelet = new CameraPagelet(row, col, this);
             _layout->addWidget(pagelet, row, col);
+
+            connect(pagelet,    SIGNAL(maximizeRequested(CameraPagelet*, bool)),
+                    this,       SLOT(onMaximizeRequested(CameraPagelet*, bool)));
         }
 
     // load cameras
@@ -34,7 +37,7 @@ CameraPage::CameraPage(QWidget *parent) :
             CameraPagelet* pagelet = (CameraPagelet*) item->widget();
             pagelet->setCamera(camera);
         }
-    }
+    }    
 }
 
 /**
@@ -58,5 +61,20 @@ CameraPage::~CameraPage()
     // save the cameras
     MySettings settings;
     settings.saveCameras(cameras);
+}
+
+void CameraPage::onMaximizeRequested(CameraPagelet* toBeMaximized, bool maximize)
+{
+    for (int row = 0; row < _layout->rowCount(); ++row)
+        for (int col = 0; col < _layout->columnCount(); ++col)
+        {
+            CameraPagelet* pagelet = (CameraPagelet*) _layout->itemAtPosition(row, col)->widget();
+            if (maximize) {
+                if (pagelet != toBeMaximized)
+                    pagelet->hide();
+            }
+            else
+                pagelet->show();
+        }
 }
 

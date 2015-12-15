@@ -21,5 +21,8 @@
         <file>Images/Bulldog.ico</file>
         <file>Images/Bulldog.png</file>
         <file>Images/About.png</file>
+        <file>Images/Intruder.png</file>
+        <file>Images/AllCameras.png</file>
+        <file>Images/Maximize.png</file>
     </qresource>
 </RCC>

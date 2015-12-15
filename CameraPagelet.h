@@ -4,6 +4,7 @@
 #include "ui_CameraPagelet.h"
 #include "Camera.h"
 #include "PipeLine.h"
+#include <QTimer>
 
 class QPushButton;
 class MotionDetector;
@@ -26,6 +27,7 @@ protected:
     void enterEvent(QEvent*);
     void leaveEvent(QEvent*);
     void resizeEvent(QResizeEvent*);
+    bool eventFilter(QObject* object, QEvent* event);
 
 private slots:
     void showButtons();
@@ -33,6 +35,15 @@ private slots:
     void onSetCamera();
     void onTurnOnCamera(bool on);
     void onDelCamera();
+    void toggleMaximized();
+    void showAllCameras();
+
+signals:
+    void maximizeRequested(CameraPagelet*, bool);
+
+private:
+    void updateButtons();
+    void doMaximize(bool maximize);
 
 private:
     Ui::CameraPagelet ui;
@@ -49,6 +60,9 @@ private:
     QPushButton*    _btConfig;
     QPushButton*    _btDelete;
     QPushButton*    _btTurnOn;
+    QPushButton*    _btMaximize;
+    bool            _maximized;
+    QTimer          _idleTimer;
 };
 
 #endif // CAMERAPAGELET_H
