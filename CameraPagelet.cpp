@@ -32,7 +32,7 @@ CameraPagelet::CameraPagelet(int row, int col, QWidget* parent) :
     hideButtons();
 
     QPushButton* showAll = new QPushButton(this);
-    showAll->resize(0, 0);
+    showAll->resize(0, 0);  // hide the button. hide() will not be able to catch key press
     showAll->setShortcut(QKeySequence(Qt::Key_Escape));
     connect(showAll, SIGNAL(clicked()), this, SLOT(showAllCameras()));
 

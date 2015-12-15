@@ -16,7 +16,7 @@ CameraPage::CameraPage(QWidget *parent) :
     int nCol = settings.getGridSize().second;
 
     // create a grid layout
-    _layout = new QGridLayout(this);
+    _layout = new QGridLayout(ui.cameraBoard);
     _layout->setMargin(0);
     _layout->setSpacing(5);
     for (int row = 0; row < nRow; ++row)
@@ -37,7 +37,13 @@ CameraPage::CameraPage(QWidget *parent) :
             CameraPagelet* pagelet = (CameraPagelet*) item->widget();
             pagelet->setCamera(camera);
         }
-    }    
+    }
+
+    connect(ui.btReview, SIGNAL(toggled(bool)), this, SLOT(onReview(bool)));
+    QButtonGroup* buttonGroup = new QButtonGroup(this);
+    buttonGroup->addButton(ui.btLive);
+    buttonGroup->addButton(ui.btReview);
+    ui.btLive->setChecked(true);
 }
 
 /**
@@ -76,5 +82,17 @@ void CameraPage::onMaximizeRequested(CameraPagelet* toBeMaximized, bool maximize
             else
                 pagelet->show();
         }
+}
+
+void CameraPage::onReview(bool show)
+{
+    if (show)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
