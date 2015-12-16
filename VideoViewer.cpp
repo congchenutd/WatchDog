@@ -3,25 +3,23 @@
 #include <QLabel>
 #include <opencv2\highgui.hpp>
 
-using namespace cv;
-
 VideoViewer::VideoViewer(QLabel* label)
 {
     _label = label;
     resize(320, 240);
-    setOriginalFrameSize(Size(640, 480));
+    setOriginalFrameSize(cv::Size(640, 480));
 }
 
-void VideoViewer::handleFrame(Mat& frame, Mat& previous)
+void VideoViewer::handleFrame(cv::Mat& frame, cv::Mat& previous)
 {
     // timestamp
     QString time = QDateTime::currentDateTime().toString("MM/dd/yyyy HH:mm:ss");
-    putText(frame, time.toStdString(), Point(10, 30), FONT_HERSHEY_DUPLEX, 1, Scalar(255, 255, 255));
+    cv::putText(frame, time.toStdString(), cv::Point(10, 30), cv::FONT_HERSHEY_DUPLEX, 1, cv::Scalar(255, 255, 255));
 
     // show the frame
-    Mat resized;
+    cv::Mat resized;
     cv::resize(frame, resized, _size);
-    cvtColor(resized, resized, COLOR_BGR2RGB);
+    cv::cvtColor(resized, resized, cv::COLOR_BGR2RGB);
     QImage image((uchar*) resized.data, resized.cols, resized.rows, resized.step, QImage::Format_RGB888);
     _label->setPixmap(QPixmap::fromImage(image));
 }
@@ -42,6 +40,6 @@ void VideoViewer::resize(int width, int height)
     }
 }
 
-void VideoViewer::setOriginalFrameSize(Size size) {
+void VideoViewer::setOriginalFrameSize(cv::Size size) {
     _originalSize = size;
 }

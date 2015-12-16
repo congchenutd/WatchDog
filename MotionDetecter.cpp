@@ -3,13 +3,10 @@
 #include <opencv2/video.hpp>
 #include <vector>
 
-using namespace cv;
-using namespace std;
-	   
 MotionDetector::MotionDetector()
 {
     setThreshold(100, 100, 1);
-    _substractor = createBackgroundSubtractorMOG2();
+    _substractor = cv::createBackgroundSubtractorMOG2();
 }
 
 void MotionDetector::setThreshold(int width, int height, int number)
@@ -19,25 +16,25 @@ void MotionDetector::setThreshold(int width, int height, int number)
     _numberThreshold = number;
 }
 
-void MotionDetector::handleFrame(Mat& frame, Mat& previous)
+void MotionDetector::handleFrame(cv::Mat& frame, cv::Mat& previous)
 {
     detectMotion(previous, frame);
 }
 
-void MotionDetector::detectMotion(Mat& frame1, Mat& frame2)
+void MotionDetector::detectMotion(cv::Mat& frame1, cv::Mat& frame2)
 {
     // Blur images to reduce noise
-    Mat blurred1, blurred2;
-    blur(frame1, blurred1, Size(4 ,4));
-    blur(frame2, blurred2, Size(4, 4));
+    cv::Mat blurred1, blurred2;
+    cv::blur(frame1, blurred1, cv::Size(4 ,4));
+    cv::blur(frame2, blurred2, cv::Size(4, 4));
 
     // Get absolute difference image
-    Mat diff;
-    absdiff(blurred1, blurred2, diff);
+    cv::Mat diff;
+    cv::absdiff(blurred1, blurred2, diff);
 
     // Split image to each channels
-    vector<Mat> channels;
-    split(diff, channels);
+    std::vector<cv::Mat> channels;
+    cv::split(diff, channels);
 
 //    // Apply threshold to each channel and combine the results
 //    Mat thresholds = Mat::zeros(diff.size(), CV_8UC1);

@@ -3,8 +3,6 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/video.hpp>
 
-using namespace cv;
-
 void PipeLine::start(int fps)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(onTimer()));
@@ -17,9 +15,9 @@ void PipeLine::stop()
     _timer.stop();
 }
 
-Size PipeLine::getFrameSize() {
-    return Size(_input.get(CAP_PROP_FRAME_WIDTH),
-                _input.get(CAP_PROP_FRAME_HEIGHT));
+cv::Size PipeLine::getFrameSize() {
+    return cv::Size(_input.get(cv::CAP_PROP_FRAME_WIDTH),
+                    _input.get(cv::CAP_PROP_FRAME_HEIGHT));
 }
 
 void PipeLine::onTimer()

@@ -6,7 +6,6 @@
 #include <QList>
 
 class FrameHandler;
-using namespace cv;
 
 /**
  * A pipeline contains multiple FramHanders
@@ -22,17 +21,17 @@ public:
 	void addHandler(FrameHandler* handler);
     void start(int fps = 10);
     void stop();
-    Size getFrameSize();
+    cv::Size getFrameSize();
 
 private slots:
     void onTimer();
 
 private:
-    VideoCapture            _input;
+    cv::VideoCapture        _input;
     QList<FrameHandler*>    _handlers;
     QTimer                  _timer;
-    Mat                     _frame;
-    Mat                     _prevFrame;
+    cv::Mat                 _frame;
+    cv::Mat                 _prevFrame;
 };
 
 #endif

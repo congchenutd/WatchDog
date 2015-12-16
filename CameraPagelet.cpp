@@ -176,7 +176,7 @@ void CameraPagelet::onTurnOnCamera(bool on)
             path = ".";
         QDir(path).mkdir(_camera.name);
         _videoSaver->config(path + "/" + _camera.name,
-                            VideoWriter::fourcc('D', 'I', 'V', 'X'),
+                            cv::VideoWriter::fourcc('D', 'I', 'V', 'X'),
                             settings.getFPS(),
                             _pipeLine.getFrameSize(),
                             settings.getStorageInterval());

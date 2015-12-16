@@ -1,4 +1,4 @@
-QT       += core gui widgets
+QT       += core gui widgets printsupport multimediawidgets
 
 TARGET = WatchDog
 TEMPLATE = app
@@ -36,7 +36,9 @@ SOURCES +=\
     ReviewPage.cpp \
     CameraPagelet.cpp \
     CameraConfigDlg.cpp \
-    Camera.cpp
+    Camera.cpp \
+    TimeLineWidget.cpp \
+    VideoPlayer.cpp
 
 HEADERS  += MainWindow.h \
     SettingsPage.h \
@@ -50,14 +52,19 @@ HEADERS  += MainWindow.h \
     ReviewPage.h \
     CameraPagelet.h \
     CameraConfigDlg.h \
-    Camera.h
+    Camera.h \
+    TimeLineWidget.h \
+    VideoPlayer.h
 
 FORMS    += MainWindow.ui \
     SettingsPage.ui \
     CameraPage.ui \
     ReviewPage.ui \
     CameraPagelet.ui \
-    CameraConfigDlg.ui
+    CameraConfigDlg.ui \
+    TimeLineView.ui \
+    TimeLineBoard.ui \
+    VideoPlayer.ui
 
 RESOURCES += \
     Resources.qrc

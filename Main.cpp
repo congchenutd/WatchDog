@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "MotionDetecter.h"
 #include "PipeLine.h"
+#include "VideoPlayer.h"
 #include "VideoSaver.h"
 #include "VideoViewer.h"
 #include <QApplication>
@@ -12,13 +13,12 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 
-using namespace cv;
 using namespace std;
-
-void intruderAlarm(Mat& frame1, Mat& frame2)
+/*
+void intruderAlarm(cv::Mat& frame1, cv::Mat& frame2)
 {
     // Blur images to reduce noise
-    Mat blurred1, blurred2;
+    cv::Mat blurred1, blurred2;
     blur(frame1, blurred1, Size(4 ,4));
     blur(frame2, blurred2, Size(4, 4));
 
@@ -88,13 +88,18 @@ void foo()
     }
 
     return;
-}
+}*/
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainWindow window;
-    window.show();
+//    MainWindow window;
+//    window.show();
+
+    VideoPlayer player;
+    player.show();
+    player.play("a/1450213310069.avi");
+
     return app.exec();
 //    foo();
 //    return 0;

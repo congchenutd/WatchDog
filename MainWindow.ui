@@ -22,7 +22,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -39,7 +39,7 @@
         <string>Cameras</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="tabReview">
+      <widget class="ReviewPage" name="tabReview">
        <attribute name="icon">
         <iconset resource="Resources.qrc">
          <normaloff>:/Images/History.png</normaloff>:/Images/History.png</iconset>
@@ -127,6 +127,12 @@
    <class>CameraPage</class>
    <extends>QWidget</extends>
    <header>CameraPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ReviewPage</class>
+   <extends>QWidget</extends>
+   <header>ReviewPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
