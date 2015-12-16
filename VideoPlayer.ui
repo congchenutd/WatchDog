@@ -100,6 +100,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -113,33 +116,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboSpeed">
-       <item>
-        <property name="text">
-         <string>0.25</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>0.5</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>4</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="comboSpeed"/>
      </item>
      <item>
       <spacer name="horizontalSpacer">

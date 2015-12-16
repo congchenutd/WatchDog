@@ -1,5 +1,7 @@
 #include "VideoPlayer.h"
 
+#include <QDateTime>
+#include <QFileInfo>
 #include <QMediaPlaylist>
 
 VideoPlayer::VideoPlayer(QWidget* parent) :
@@ -17,13 +19,27 @@ VideoPlayer::VideoPlayer(QWidget* parent) :
 
     _playList = new QMediaPlaylist;
 
+    _muted = false;
+
+    ui.comboSpeed->addItem("0.25x", QVariant(0.25));
+    ui.comboSpeed->addItem("0.5x", QVariant(0.5));
+    ui.comboSpeed->addItem("1.0x", QVariant(1.0));
+    ui.comboSpeed->addItem("2.0x", QVariant(2.0));
+    ui.comboSpeed->addItem("5.0x", QVariant(5.0));
+    ui.comboSpeed->setCurrentIndex(2);
+
     connect(ui.btPlay, SIGNAL(clicked()), this, SLOT(onPlay()));
     connect(ui.btStop, SIGNAL(clicked()), this, SLOT(onStop()));
     connect(ui.btPrev, SIGNAL(clicked()), this, SLOT(onPrev()));
     connect(ui.btNext, SIGNAL(clicked()), this, SLOT(onNext()));
     connect(ui.btMute, SIGNAL(clicked()), this, SLOT(onMute()));
 
-    _muted = false;
+    connect(ui.sliderVolume, SIGNAL(sliderMoved(int)), _player, SLOT(setVolume(int)));
+    connect(ui.comboSpeed,   SIGNAL(activated(int)), SLOT(onSpeedChanged()));
+    connect(ui.sliderProgress, SIGNAL(sliderMoved(int)), this, SLOT(onSeek(int)));
+
+    connect(_player, SIGNAL(durationChanged(qint64)), SLOT(onDurationChanged(qint64)));
+    connect(_player, SIGNAL(positionChanged(qint64)), SLOT(onPositionChanged(qint64)));
 }
 
 void VideoPlayer::play(const QString& filePath)
@@ -35,6 +51,7 @@ void VideoPlayer::play(const QString& filePath)
     _player->setMedia(QUrl::fromLocalFile(filePath));
     _player->play();
     setState(QMediaPlayer::PlayingState);
+    setWindowTitle("Video Player - " + QFileInfo(filePath).fileName());
 }
 
 void VideoPlayer::pause()
@@ -63,7 +80,6 @@ void VideoPlayer::onStop()
 
 void VideoPlayer::onPrev()
 {
-
 }
 
 void VideoPlayer::onNext()
@@ -74,6 +90,7 @@ void VideoPlayer::onNext()
 void VideoPlayer::onMute()
 {
     _muted = !_muted;
+    _player->setMuted(_muted);
     ui.btMute->setIcon(style()->standardIcon(_muted
                     ? QStyle::SP_MediaVolumeMuted
                     : QStyle::SP_MediaVolume));
@@ -88,9 +105,34 @@ void VideoPlayer::onMute()
         ui.sliderVolume->setValue(previousVolume);
 }
 
-void VideoPlayer::onProgress(int)
-{
+void VideoPlayer::onSpeedChanged() {
+    _player->setPlaybackRate(ui.comboSpeed->itemData(ui.comboSpeed->currentIndex()).toDouble());
+}
 
+void VideoPlayer::onDurationChanged(qint64 duration) {
+    ui.sliderProgress->setMaximum(duration / 1000);
+}
+
+void VideoPlayer::onPositionChanged(qint64 position)
+{
+    const qint64 seconds = position / 1000;
+    ui.sliderProgress->setValue(seconds);
+    QString output;
+    if (seconds > 0)
+    {
+        const qint64 totalSeconds = ui.sliderProgress->maximum();
+        QTime currentTime((seconds/3600)%60, (seconds/60)%60, seconds%60, (seconds*1000)%1000);
+        QTime totalTime((totalSeconds/3600)%60, (totalSeconds/60)%60, totalSeconds%60, (totalSeconds*1000)%1000);
+        QString format = "mm:ss";
+        if (seconds > 3600)
+            format = "hh:mm:ss";
+        output = currentTime.toString(format) + " / " + totalTime.toString(format);
+    }
+    ui.labelProgress->setText(output);
+}
+
+void VideoPlayer::onSeek(int seconds) {
+    _player->setPosition(seconds * 1000);
 }
 
 void VideoPlayer::setState(QMediaPlayer::State state)

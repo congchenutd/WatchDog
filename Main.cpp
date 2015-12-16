@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
     VideoPlayer player;
     player.show();
-    player.play("a/1450213310069.avi");
+    player.play("1449817102-110043.mp4");
 
     return app.exec();
 //    foo();

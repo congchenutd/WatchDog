@@ -23,7 +23,10 @@ private slots:
     void onPrev();
     void onNext();
     void onMute();
-    void onProgress(int);
+    void onSpeedChanged();
+    void onDurationChanged(qint64 duration);
+    void onPositionChanged(qint64 position);
+    void onSeek(int seconds);
 
 private:
     Ui::VideoPlayer ui;
