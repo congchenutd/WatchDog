@@ -4,8 +4,9 @@
 #include "ui_VideoPlayer.h"
 #include <QMediaPlayer>
 
-class QMediaPlaylist;
-
+/**
+ * A video player
+ */
 class VideoPlayer : public QWidget
 {
     Q_OBJECT
@@ -13,13 +14,12 @@ class VideoPlayer : public QWidget
 public:
     explicit VideoPlayer(QWidget* parent = 0);
     void play(const QString& filePath);
+    void play(const QString& filePath, int seconds);
     void pause();
-    void addFile(const QString& filePath);
-    void setState(QMediaPlayer::State state);
+
 
 private slots:
     void onPlay();
-    void onStop();
     void onPrev();
     void onNext();
     void onMute();
@@ -27,15 +27,17 @@ private slots:
     void onDurationChanged(qint64 duration);
     void onPositionChanged(qint64 position);
     void onSeek(int seconds);
+    void setState(QMediaPlayer::State state);
+    void onMediaStatusChanged(QMediaPlayer::MediaStatus status);
 
 private:
     Ui::VideoPlayer ui;
 
     QMediaPlayer*   _player;
-    QMediaPlaylist* _playList;
     QString         _filePath;
     bool            _muted;
     QMediaPlayer::State _state;
+    int             _toSeek;
 };
 
 #endif // VIDEOPLAYER_H

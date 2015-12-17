@@ -6,8 +6,8 @@
 VideoViewer::VideoViewer(QLabel* label)
 {
     _label = label;
-    resize(320, 240);
     setOriginalFrameSize(cv::Size(640, 480));
+    resize(640, 480);
 }
 
 void VideoViewer::handleFrame(cv::Mat& frame, cv::Mat& previous)

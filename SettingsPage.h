@@ -10,7 +10,7 @@ class SettingsPage : public QWidget
 
 public:
     SettingsPage(QWidget* parent = 0);
-    void load();
+    void loadSettings();
 
 private slots:
     void onSave();

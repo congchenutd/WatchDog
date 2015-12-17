@@ -20,6 +20,10 @@ cv::Size PipeLine::getFrameSize() {
                     _input.get(cv::CAP_PROP_FRAME_HEIGHT));
 }
 
+Camera PipeLine::getCamera() const {
+    return _camera;
+}
+
 void PipeLine::onTimer()
 {
     if(!_input.isOpened())
@@ -30,14 +34,16 @@ void PipeLine::onTimer()
         handler->handleFrame(_frame, _prevFrame);
 }
 
-void PipeLine::openDevice(int device) {
-    _input.open(device);
-}
-
-void PipeLine::openDevice(const QString& url) {
-    _input.open(url.toStdString());
+void PipeLine::openCamera(const Camera& camera)
+{
+    _camera = camera;
+    if (camera.url.isEmpty())
+        _input.open(0);
+    else
+        _input.open(camera.url.toStdString());
 }
 
 void PipeLine::addHandler(FrameHandler* handler) {
 	_handlers.push_back(handler);
+    handler->setPipeLine(this);
 }

@@ -23,6 +23,6 @@ void CameraConfigDlg::setCamera(const Camera& camera)
 
 void CameraConfigDlg::accept()
 {
-    if (!ui.leName->text().isEmpty())
+    if (!ui.leName->text().isEmpty())   // name must be none-empty
         return QDialog::accept();
 }

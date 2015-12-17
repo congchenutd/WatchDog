@@ -93,12 +93,12 @@ void foo()
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-//    MainWindow window;
-//    window.show();
+    MainWindow window;
+    window.show();
 
-    VideoPlayer player;
-    player.show();
-    player.play("1449817102-110043.mp4");
+//    VideoPlayer player;
+//    player.show();
+//    player.play("a/1450305703153.avi", 30);
 
     return app.exec();
 //    foo();

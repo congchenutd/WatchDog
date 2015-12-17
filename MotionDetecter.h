@@ -17,7 +17,7 @@ public:
     void handleFrame(cv::Mat& frame, cv::Mat& previous);
 
 private:
-    void detectMotion(cv::Mat& frame1, cv::Mat& frame2);
+    void detectMotion(cv::Mat& frame, cv::Mat& previous);
 
 private:
 	int _widthThreshold;

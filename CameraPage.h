@@ -16,7 +16,7 @@ public:
     ~CameraPage();
 
 private slots:
-    void onMaximizeRequested(CameraPagelet* toBeMaximized, bool maximize);
+    void onMaximize(CameraPagelet* toBeMaximized, bool maximize);
 
 private:
     Ui::CameraPage ui;

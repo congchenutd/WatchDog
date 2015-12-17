@@ -19,6 +19,7 @@ CameraPagelet::CameraPagelet(int row, int col, QWidget* parent) :
 {
     ui.setupUi(this);
 
+    // floating buttons
     _btConfig   = new QPushButton(QIcon(":/Images/Config.png"),   "", ui.label);
     _btDelete   = new QPushButton(QIcon(":/Images/Delete.png"),   "", ui.label);
     _btTurnOn   = new QPushButton(QIcon(":/Images/CameraOn.png"), "", ui.label);
@@ -50,7 +51,7 @@ CameraPagelet::CameraPagelet(int row, int col, QWidget* parent) :
     _pipeLine.addHandler(_videoSaver);
 
     ui.label->setMouseTracking(true);
-    ui.label->installEventFilter(this);
+    ui.label->installEventFilter(this); // let this object takes care of mouse events
 }
 
 void CameraPagelet::setCamera(const Camera& camera)
@@ -80,12 +81,12 @@ void CameraPagelet::leaveEvent(QEvent*) {
 void CameraPagelet::resizeEvent(QResizeEvent*)
 {
     _videoViewer->resize(ui.label->width(), ui.label->height());
-    updateButtons();
+    updateButtons();    // update button positons
 }
 
 bool CameraPagelet::eventFilter(QObject* object, QEvent* event)
 {
-    if (object == ui.label && _camera.isValid())
+    if (object == ui.label && _camera.isValid())    // has a camera
     {
         if (event->type() == QEvent::MouseButtonDblClick)
         {
@@ -106,7 +107,7 @@ void CameraPagelet::updateButtons()
     const int bottomMargin = 40;
     const int y            = ui.label->height() - bottomMargin;
     const int space        = 10;
-    const int buttonWidth  = _btConfig->width();
+    const int buttonWidth  = _btConfig->width();    // ASSUME: all buttons have the same width
     const int totalWidth   = _camera.isValid() ? 4 * buttonWidth + 3 * space : buttonWidth;
     int x = (ui.label->width() - totalWidth) / 2;
 
@@ -159,11 +160,7 @@ void CameraPagelet::onTurnOnCamera(bool on)
     }
     else
     {
-        if (_camera.url.isEmpty())
-            _pipeLine.openDevice(0);
-        else
-            _pipeLine.openDevice(_camera.url);
-
+        _pipeLine.openCamera(_camera);
         _videoViewer->setOriginalFrameSize(_pipeLine.getFrameSize());
 
         MySettings settings;

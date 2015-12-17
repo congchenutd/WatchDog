@@ -10,9 +10,6 @@ public:
     void handleFrame(cv::Mat& frame, cv::Mat& previous);
 
 private:
-    QString generateFileName();
-
-private:
     cv::VideoWriter _videoWriter;
     int             _frameCount;
     QString         _path;

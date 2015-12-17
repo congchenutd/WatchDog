@@ -1,6 +1,7 @@
 #ifndef PIPELINE_H
 #define PIPELINE_H
 
+#include "Camera.h"
 #include <opencv2/opencv.hpp>
 #include <QTimer>
 #include <QList>
@@ -16,12 +17,12 @@ class PipeLine: public QObject
     Q_OBJECT
 
 public:
-    void openDevice(int device);
-    void openDevice(const QString& url);
+    void openCamera(const Camera& camera);
 	void addHandler(FrameHandler* handler);
     void start(int fps = 10);
     void stop();
     cv::Size getFrameSize();
+    Camera getCamera() const;
 
 private slots:
     void onTimer();
@@ -32,6 +33,7 @@ private:
     QTimer                  _timer;
     cv::Mat                 _frame;
     cv::Mat                 _prevFrame;
+    Camera                  _camera;
 };
 
 #endif

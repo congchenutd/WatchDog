@@ -1,7 +1,19 @@
+#include "MotionManager.h"
 #include "MotionDetecter.h"
+#include "PipeLine.h"
 #include <opencv2/highgui.hpp>
 #include <opencv2/video.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <vector>
+#include <QDateTime>
+
+using cv::Mat;
+using cv::Size;
+using cv::Point;
+using cv::Scalar;
+using cv::Rect;
+using namespace std;
 
 MotionDetector::MotionDetector()
 {
@@ -18,54 +30,40 @@ void MotionDetector::setThreshold(int width, int height, int number)
 
 void MotionDetector::handleFrame(cv::Mat& frame, cv::Mat& previous)
 {
-    detectMotion(previous, frame);
+    detectMotion(frame, previous);
 }
 
-void MotionDetector::detectMotion(cv::Mat& frame1, cv::Mat& frame2)
+void MotionDetector::detectMotion(cv::Mat& frame, cv::Mat& previous)
 {
-    // Blur images to reduce noise
-    cv::Mat blurred1, blurred2;
-    cv::blur(frame1, blurred1, cv::Size(4 ,4));
-    cv::blur(frame2, blurred2, cv::Size(4, 4));
+    const Scalar color = Scalar(0, 0, 255);
+    vector<vector<Point> > contours;
 
-    // Get absolute difference image
-    cv::Mat diff;
-    cv::absdiff(blurred1, blurred2, diff);
+    _substractor->apply(frame, _foreground);
+    erode (_foreground, _foreground, Mat());
+    dilate(_foreground, _foreground, Mat());
+    findContours(_foreground, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 
-    // Split image to each channels
-    std::vector<cv::Mat> channels;
-    cv::split(diff, channels);
+    if(contours.size() < _numberThreshold)
+        return;
 
-//    // Apply threshold to each channel and combine the results
-//    Mat thresholds = Mat::zeros(diff.size(), CV_8UC1);
-//    for (int i = 0; i < channels.size(); i++)
-//    {
-//        Mat thresh;
-//        threshold(channels[i], thresh, 45, 255, CV_THRESH_BINARY);
-//        thresholds |= thresh;
-//    }
+    int objectCount = 0;
+    for(size_t i = 0; i < contours.size(); i++)
+    {
+        // Approximate contours to polygons
+        vector<Point> polygon;
+        approxPolyDP(Mat(contours[i]), polygon, 3, true);
 
-//    // Perform morphological close operation to filling in the gaps
-//    Mat e;
-//    getStructuringElement(MORPH_RECT, Size(10, 10));
-//    morphologyEx(thresholds, e, MORPH_CLOSE, Mat(), Point(-1,-1), 5);
+        // Draw bounding rectangle
+        Rect boundRect = boundingRect(Mat(polygon));
+        if (boundRect.width > _widthThreshold && boundRect.height > _heightThreshold)
+        {
+            rectangle(frame, boundRect.tl(), boundRect.br(), color, 2, 8, 0);
+            objectCount ++;
+        }
+    }
 
-    // Find all contours
-//    vector<vector<Point> > contours;
-//    findContours(e, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-
-//    const Scalar redColor = Scalar(0, 0, 255);
-//    for(size_t i = 0; i < contours.size(); i++)
-//    {
-//        // Approximate contours to polygons
-//        vector<Point> polygon;
-//        approxPolyDP(Mat(contours[i]), polygon, 3, true);
-
-//        // Draw bounding rectangle
-//        Rect boundRect = boundingRect(Mat(polygon));
-//        if (boundRect.width > 100 && boundRect.height > 100)
-//            rectangle(frame2, boundRect.tl(), boundRect.br(), redColor, 2, 8, 0);
-//    }
+    if (objectCount > 0)
+        MotionManager::getInstance().addMotion(_pipeLine->getCamera());
 }
 
 

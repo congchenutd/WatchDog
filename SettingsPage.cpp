@@ -6,13 +6,14 @@ SettingsPage::SettingsPage(QWidget* parent) :
     QWidget(parent)
 {
     ui.setupUi(this);
-    connect(ui.btSave,          SIGNAL(clicked()), this, SLOT(onSave()));
-    connect(ui.btStoragePath,   SIGNAL(clicked()), this, SLOT(onSetStoragePath()));
+    connect(ui.btSave,          SIGNAL(clicked()), SLOT(onSave()));
+    connect(ui.btStoragePath,   SIGNAL(clicked()), SLOT(onSetStoragePath()));
     enforceTimeLimit();
     enforceStorageLimit();
+    loadSettings();
 }
 
-void SettingsPage::load()
+void SettingsPage::loadSettings()
 {
     ui.sbFPS            ->setValue  (_settings.getFPS());
     ui.sbWidth          ->setValue  (_settings.getMinWidth());
@@ -47,6 +48,9 @@ void SettingsPage::onSetStoragePath()
         ui.leStoragePath->setText(dir);
 }
 
+/**
+ * Remove old videos
+ */
 void SettingsPage::enforceTimeLimit()
 {
     QDir dir(_settings.getStoragePath());
@@ -59,6 +63,9 @@ void SettingsPage::enforceTimeLimit()
             QFile::remove(info.filePath());
 }
 
+/**
+ * Remove old videos when storage limit is hit
+ */
 void SettingsPage::enforceStorageLimit()
 {
     qint64 size = 0;
@@ -66,9 +73,13 @@ void SettingsPage::enforceStorageLimit()
     QFileInfoList infoList = dir.entryInfoList(QStringList() << "*.avi",
                                                QDir::NoFilter,
                                                QDir::Time | QDir::Reversed);
+    // total file size
     foreach(const QFileInfo& info, infoList)
         size += info.size();
-    while(!infoList.isEmpty() && size > 10 * 1024 * 1024)
+
+    // remove oldest files until size is below limit
+    qint64 sizeLimit = MySettings().getMaxStorage() * 1024 * 1024;
+    while(!infoList.isEmpty() && size > sizeLimit)
     {
         size -= infoList.front().size();
         QFile(infoList.front().filePath()).remove();

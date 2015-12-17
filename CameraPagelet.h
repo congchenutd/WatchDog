@@ -48,9 +48,9 @@ private:
 private:
     Ui::CameraPagelet ui;
 
-    Camera      _camera;
-    int         _row;
-    int         _col;
+    Camera  _camera;
+    int     _row;
+    int     _col;
 
     PipeLine        _pipeLine;
     MotionDetector* _motionDetector;
