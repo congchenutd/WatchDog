@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QPair>
 
-class Camera;
+struct Camera;
 
 struct Video
 {
@@ -43,7 +43,7 @@ private:
     int getNextID(const QString& tableName) const;
 
 private:
-    const static int MergeThreshold = 10000; // 10 seconds
+    const static int MergeThreshold = 20000;    // how close will two motions/videos be merged
     qint64  _motionStart;
     qint64  _motionEnd;
     qint64  _videoStart;

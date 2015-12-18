@@ -39,7 +39,8 @@ SOURCES +=\
     Camera.cpp \
     TimeLineWidget.cpp \
     VideoPlayer.cpp \
-    MotionManager.cpp
+    MotionManager.cpp \
+    VideoWidget.cpp
 
 HEADERS  += MainWindow.h \
     SettingsPage.h \
@@ -56,7 +57,8 @@ HEADERS  += MainWindow.h \
     Camera.h \
     TimeLineWidget.h \
     VideoPlayer.h \
-    MotionManager.h
+    MotionManager.h \
+    VideoWidget.h
 
 FORMS    += MainWindow.ui \
     SettingsPage.ui \
